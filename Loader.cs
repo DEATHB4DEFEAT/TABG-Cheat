@@ -1,20 +1,31 @@
-﻿namespace ExampleAssembly
+﻿using System;
+using BepInEx;
+
+namespace ExampleAssembly
 {
-    public class Loader
+    [BepInPlugin("com.biney.exampleassembly", "ExampleAssembly", "1.0")]
+    public class Loader : BaseUnityPlugin
     {
-        static UnityEngine.GameObject gameObject;
+        static UnityEngine.GameObject _gameObject;
+
+        private void Awake()
+        {
+            Load();
+        }
 
         public static void Load()
         {
-            gameObject = new UnityEngine.GameObject();
-            gameObject.AddComponent<Cheat>();
-            gameObject.AddComponent<ESP>();
-            UnityEngine.Object.DontDestroyOnLoad(gameObject);
+            Console.WriteLine("Loading ExampleAssembly...");
+            _gameObject = new UnityEngine.GameObject();
+            _gameObject.AddComponent<Cheat>();
+            _gameObject.AddComponent<Esp>();
+            UnityEngine.Object.DontDestroyOnLoad(_gameObject);
+            Console.WriteLine("Loaded ExampleAssembly!");
         }
 
         public static void Unload()
         {
-            UnityEngine.Object.Destroy(gameObject);
+            UnityEngine.Object.Destroy(_gameObject);
         }
     }
 }

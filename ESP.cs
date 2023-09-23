@@ -1,41 +1,34 @@
-﻿using HighlightingSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ExampleAssembly {
-    class ESP : MonoBehaviour {
-        public static bool playerBox = true;
-        public static bool playerName = true;
-        public static bool crosshair = true;
-        public static bool item = true;
-        public static bool vehicle = true;
+    class Esp : MonoBehaviour {
+        public static bool PlayerBox;
+        public static bool PlayerName;
+        public static bool Crosshair;
+        public static bool Item;
+        public static bool Vehicle;
 
-        private static readonly float crosshairScale = 7f;
-        private static readonly float lineThickness = 1.75f;
+        private static readonly float CrosshairScale = 7f;
+        private static readonly float LineThickness = 1.75f;
 
-        private static Material chamsMaterial;
+        private static Material _chamsMaterial;
 
-        public static Camera mainCam;
+        public static Camera MainCam;
 
         public void Start() {
-            chamsMaterial = new Material(Shader.Find("Hidden/Internal-Colored"))
+            _chamsMaterial = new Material(Shader.Find("Hidden/Internal-Colored"))
             {
                 hideFlags = HideFlags.DontSaveInEditor | HideFlags.HideInHierarchy
             };
 
-            chamsMaterial.SetInt("_SrcBlend", 5);
-            chamsMaterial.SetInt("_DstBlend", 10);
-            chamsMaterial.SetInt("_Cull", 0);
-            chamsMaterial.SetInt("_ZTest", 8); // 8 = see through walls.
-            chamsMaterial.SetInt("_ZWrite", 0);
-            chamsMaterial.SetColor("_Color", Color.magenta);
+            _chamsMaterial.SetInt("_SrcBlend", 5);
+            _chamsMaterial.SetInt("_DstBlend", 10);
+            _chamsMaterial.SetInt("_Cull", 0);
+            _chamsMaterial.SetInt("_ZTest", 8); // 8 = see through walls.
+            _chamsMaterial.SetInt("_ZWrite", 0);
+            _chamsMaterial.SetColor("_Color", Color.magenta);
 
-            mainCam = Camera.main;
+            MainCam = Camera.main;
         }
 
         public static void DoChams() {
@@ -44,9 +37,10 @@ namespace ExampleAssembly {
                     continue;
                 }
 
-               foreach (Renderer renderer in player?.gameObject?.GetComponentsInChildren<Renderer>()) {
-                    //renderer.material = chamsMaterial;
-                    renderer.material = TABGMaterialDatabase.Instance.GetRarityMaterial(Curse.Rarity.Legendary);
+                foreach (Renderer renderer in player.gameObject.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.material = _chamsMaterial;
+                    // renderer.material = TABGMaterialDatabase.Instance.GetRarityMaterial(Curse.Rarity.Legendary);
                 }
 
                 /*Highlighter h = player.GetOrAddComponent<Highlighter>();
@@ -63,110 +57,110 @@ namespace ExampleAssembly {
                 return;
             }
 
-            Items();
-            Vehicles();
-            PlayerName();
-            PlayerBox();
-            Crosshair();
+            // Items();
+            // Vehicles();
+            MakePlayerName();
+            MakePlayerBox();
+            MakeCrosshair();
         }
 
-        private static void Items() {
-            if (!item) {
+        // private static void Items() {
+        //     if (!item) {
+        //         return;
+        //     }
+        //
+        //     if (Cheat.droppedItems.Length > 0) {
+        //         foreach (var item in Cheat.droppedItems) {
+        //             if (item == null) {
+        //                 continue;
+        //             }
+        //
+        //             Vector3 w2s = mainCam.WorldToScreenPoint(item.transform.position);
+        //             w2s.y = Screen.height - (w2s.y + 1f);
+        //
+        //             if (ESPUtils.IsOnScreen(w2s)) {
+        //                 ESPUtils.DrawString(w2s, item.name, Color.green, true, 12, FontStyle.BoldAndItalic, 1);
+        //             }
+        //         }
+        //     }
+        // }
+
+        // private static void Vehicles() {
+        //     if (!vehicle) {
+        //         return;
+        //     }
+        //
+        //     if (Cheat.vehicles.Length > 0) {
+        //         foreach (var vehicle in Cheat.vehicles) {
+        //             if (vehicle == null) {
+        //                 continue;
+        //             }
+        //
+        //             Vector3 w2s = mainCam.WorldToScreenPoint(vehicle.transform.position);
+        //             w2s.y = Screen.height - (w2s.y + 1f);
+        //
+        //             if (ESPUtils.IsOnScreen(w2s)) {
+        //                 ESPUtils.DrawString(w2s, "Vehicle", Color.yellow, true, 12, FontStyle.BoldAndItalic, 1);
+        //             }
+        //         }
+        //     }
+        // }
+
+        private static void MakePlayerBox() {
+            if (!PlayerBox) {
                 return;
             }
 
-            if (Cheat.droppedItems.Length > 0) {
-                foreach (Pickup item in Cheat.droppedItems) {
-                    if (item == null) {
-                        continue;
-                    }
-
-                    Vector3 w2s = mainCam.WorldToScreenPoint(item.transform.position);
-                    w2s.y = Screen.height - (w2s.y + 1f);
-
-                    if (ESPUtils.IsOnScreen(w2s)) {
-                        ESPUtils.DrawString(w2s, item.itemName, Color.green, true, 12, FontStyle.BoldAndItalic, 1);
-                    }
-                }
-            }
-        }
-
-        private static void Vehicles() {
-            if (!vehicle) {
-                return;
-            }
-
-            if (Cheat.vehicles.Length > 0) {
-                foreach (Car vehicle in Cheat.vehicles) {
-                    if (vehicle == null) {
-                        continue;
-                    }
-
-                    Vector3 w2s = mainCam.WorldToScreenPoint(vehicle.transform.position);
-                    w2s.y = Screen.height - (w2s.y + 1f);
-
-                    if (ESPUtils.IsOnScreen(w2s)) {
-                        ESPUtils.DrawString(w2s, "Vehicle", Color.yellow, true, 12, FontStyle.BoldAndItalic, 1);
-                    }
-                }
-            }
-        }
-
-        private static void PlayerBox() {
-            if (!playerBox) {
-                return;
-            }
-
-            if (Cheat.players.Length > 0) {
-                foreach (Player player in Cheat.players) {
+            if (Cheat.Players.Length > 0) {
+                foreach (Player player in Cheat.Players) {
                     if (player != null && player != Player.localPlayer) {
-                        Vector3 w2sHead = mainCam.WorldToScreenPoint(player.m_head.transform.position);
-                        Vector3 w2sBottom = mainCam.WorldToScreenPoint(player.footLeft.transform.position);
+                        Vector3 w2SHead = MainCam.WorldToScreenPoint(player.GetComponentInChildren<Head>().transform.position);
+                        Vector3 w2SBottom = MainCam.WorldToScreenPoint(player.GetComponentInChildren<FootLeft>().transform.position);
 
-                        float height = Mathf.Abs(w2sHead.y - w2sBottom.y);
+                        float height = Mathf.Abs(w2SHead.y - w2SBottom.y);
 
-                        if (ESPUtils.IsOnScreen(w2sHead)) {
-                            ESPUtils.CornerBox(new Vector2(w2sHead.x, Screen.height - w2sHead.y - 20f), height / 2f, height + 20f, 2f, Color.cyan, true);
+                        if (ESPUtils.IsOnScreen(w2SHead)) {
+                            ESPUtils.CornerBox(new Vector2(w2SHead.x, Screen.height - w2SHead.y - 20f), height / 2f, height + 20f, 2f, Color.cyan, true);
                         } 
                     }
                 }
             }
         }
 
-        private static void PlayerName() {
-            if (!playerName) {
+        private static void MakePlayerName() {
+            if (!PlayerName) {
                 return;
             }
 
-            if (Cheat.players.Length > 0) {
-                foreach (Player player in Cheat.players) {
+            if (Cheat.Players.Length > 0) {
+                foreach (Player player in Cheat.Players) {
                     if (player != null && player != Player.localPlayer) {
-                        Vector3 w2s = mainCam.WorldToScreenPoint(player.footLeft.transform.position);
-                        w2s.y = Screen.height - (w2s.y + 1f);
+                        Vector3 w2S = MainCam.WorldToScreenPoint(player.GetComponentInChildren<FootLeft>().transform.position);
+                        w2S.y = Screen.height - (w2S.y + 1f);
 
-                        if (ESPUtils.IsOnScreen(w2s)) {
-                            ESPUtils.DrawString(w2s, "Player", Color.cyan, true, 12, FontStyle.Bold, 1);
+                        if (ESPUtils.IsOnScreen(w2S)) {
+                            ESPUtils.DrawString(w2S, "Player", Color.cyan, true, 12, FontStyle.Bold, 1);
                         }
                     }
                 }
             }
         }
 
-        private static void Crosshair() {
-            if (!crosshair) {
+        private static void MakeCrosshair() {
+            if (!Crosshair) {
                 return;
             }
 
             Color32 col = new Color32(30, 144, 255, 255);
 
-            Vector2 lineHorizontalStart = new Vector2(Screen.width / 2 - crosshairScale, Screen.height / 2);
-            Vector2 lineHorizontalEnd = new Vector2(Screen.width / 2 + crosshairScale, Screen.height / 2);
+            Vector2 lineHorizontalStart = new Vector2(Screen.width / 2 - CrosshairScale, Screen.height / 2);
+            Vector2 lineHorizontalEnd = new Vector2(Screen.width / 2 + CrosshairScale, Screen.height / 2);
 
-            Vector2 lineVerticalStart = new Vector2(Screen.width / 2, Screen.height / 2 - crosshairScale);
-            Vector2 lineVerticalEnd = new Vector2(Screen.width / 2, Screen.height / 2 + crosshairScale);
+            Vector2 lineVerticalStart = new Vector2(Screen.width / 2, Screen.height / 2 - CrosshairScale);
+            Vector2 lineVerticalEnd = new Vector2(Screen.width / 2, Screen.height / 2 + CrosshairScale);
 
-            ESPUtils.DrawLine(lineHorizontalStart, lineHorizontalEnd, col, lineThickness);
-            ESPUtils.DrawLine(lineVerticalStart, lineVerticalEnd, col, lineThickness);
+            ESPUtils.DrawLine(lineHorizontalStart, lineHorizontalEnd, col, LineThickness);
+            ESPUtils.DrawLine(lineVerticalStart, lineVerticalEnd, col, LineThickness);
         }
     }
 }
