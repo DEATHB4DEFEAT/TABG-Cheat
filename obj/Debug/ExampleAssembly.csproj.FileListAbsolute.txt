@@ -1,0 +1,7 @@
+D:\Downloads\build\debug\ExampleAssembly.dll
+D:\Downloads\build\debug\ExampleAssembly.pdb
+D:\Downloads\random\TABGMonoInternal\obj\Debug\ExampleAssembly.csproj.AssemblyReference.cache
+D:\Downloads\random\TABGMonoInternal\obj\Debug\ExampleAssembly.csproj.CoreCompileInputs.cache
+D:\Downloads\random\TABGMonoInternal\obj\Debug\ExampleAssembly.csproj.CopyComplete
+D:\Downloads\random\TABGMonoInternal\obj\Debug\ExampleAssembly.dll
+D:\Downloads\random\TABGMonoInternal\obj\Debug\ExampleAssembly.pdb
