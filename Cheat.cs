@@ -1,4 +1,5 @@
-﻿using Landfall.TABC;
+﻿using System;
+using Landfall.TABC;
 using RootMotion.FinalIK;
 using UnityEngine;
 
@@ -34,8 +35,12 @@ namespace ExampleAssembly
                             foreach (ProjectileHit proj in FindObjectsOfType<ProjectileHit>()) {
                                 // player.GetComponent<HealthHandler>().TakeDamage(1000f, proj.transform.position);
                                 proj.damage = 1000f;
-                                proj.force = 10f;
                                 proj.transform.position = player.transform.position;
+
+                                Console.WriteLine($"proj.name: {proj.name}");
+                                Console.WriteLine($"proj.damage: {proj.damage}");
+                                Console.WriteLine($"proj.transform.position: {proj.transform.position}");
+                                Console.WriteLine($"player.transform.position: {player.transform.position}");
                             }
                         }
                     }
