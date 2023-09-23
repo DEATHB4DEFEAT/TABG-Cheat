@@ -1,4 +1,5 @@
-﻿using RootMotion.FinalIK;
+﻿using Landfall.TABC;
+using RootMotion.FinalIK;
 using UnityEngine;
 
 namespace ExampleAssembly
@@ -29,9 +30,12 @@ namespace ExampleAssembly
             if (Input.GetKeyDown(KeyCode.Mouse0) && _magicBullet) {
                 if (Players.Length > 0) {
                     foreach (Player player in Players) {
-                        if (player != Player.localPlayer && player != null) {
+                        if (player != null && player != Player.localPlayer) {
                             foreach (ProjectileHit proj in FindObjectsOfType<ProjectileHit>()) {
-                                player.GetComponent<HealthHandler>().TakeDamage(1000f, proj.transform.position);
+                                // player.GetComponent<HealthHandler>().TakeDamage(1000f, proj.transform.position);
+                                proj.damage = 1000f;
+                                proj.force = 10f;
+                                proj.transform.position = player.transform.position;
                             }
                         }
                     }
@@ -39,7 +43,7 @@ namespace ExampleAssembly
             }
         }
 
-        public void SuperGun(ref Weapon gun)
+        public void SuperGun(Weapon gun)
         {
             gun.attackSpeedM = 100f;
             gun.auto = true;
@@ -54,14 +58,13 @@ namespace ExampleAssembly
         public void Update() {
             KeyHandler();
 
-            if (_godMode) {
-                if (Player.localPlayer != null) {
-                    Player.localPlayer.data.defaultJumps = 1000;
-                    // Player.localPlayer.stats.regenerationAdd = 3000f;
-                    Player.localPlayer.GetComponent<PlayerHealth>().health = 1000f;
-                    Player.localPlayer.GetComponent<PlayerHealth>().maxHealth = 1000f;
-                }
-            }
+            // if (_godMode && Player.localPlayer != null) {
+            //     Player.localPlayer.data.defaultJumps = 1000;
+            //     Player.localPlayer.stats.regenerationAdd = 3000f;
+            //     Player.localPlayer.GetComponent<PlayerHealth>().health = 1000f;
+            //     Player.localPlayer.GetComponent<PlayerHealth>().maxHealth = 1000f;
+            //     Player.localPlayer.GetComponent<HealthHandler>().SetInvulnerable(true);
+            // }
 
             if (Time.time >= _lastCacheTime) {
                 _lastCacheTime = Time.time + 5f;
@@ -106,17 +109,17 @@ namespace ExampleAssembly
                     Weapon leftGun = Player.localPlayer.GetComponentInChildren<WeaponHandler>().leftWeapon;
 
                     if (rightGun)
-                        SuperGun(ref rightGun);
+                        SuperGun(rightGun);
 
                     if (leftGun)
-                        SuperGun(ref leftGun);
+                        SuperGun(leftGun);
                 }
 
                 if (GUILayout.Button("Chams")) {
                     Esp.DoChams();
                 }
             }
-            
+
             GUILayout.Space(20f);
 
             GUILayout.BeginVertical("ESP", GUI.skin.box);

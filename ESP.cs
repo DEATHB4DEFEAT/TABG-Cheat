@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace ExampleAssembly {
     class Esp : MonoBehaviour {
@@ -33,22 +34,14 @@ namespace ExampleAssembly {
 
         public static void DoChams() {
             foreach (Player player in FindObjectsOfType<Player>()) {
-                if (player == null) {
+                if (player == null || player == Player.localPlayer) {
                     continue;
                 }
 
                 foreach (Renderer renderer in player.gameObject.GetComponentsInChildren<Renderer>())
                 {
                     renderer.material = _chamsMaterial;
-                    // renderer.material = TABGMaterialDatabase.Instance.GetRarityMaterial(Curse.Rarity.Legendary);
                 }
-
-                /*Highlighter h = player.GetOrAddComponent<Highlighter>();
-                
-                if (h) {
-                    h.FlashingOff();
-                    h.ConstantOnImmediate(Color.red);
-                }*/
             }
         }
 
@@ -121,7 +114,7 @@ namespace ExampleAssembly {
 
                         if (ESPUtils.IsOnScreen(w2SHead)) {
                             ESPUtils.CornerBox(new Vector2(w2SHead.x, Screen.height - w2SHead.y - 20f), height / 2f, height + 20f, 2f, Color.cyan, true);
-                        } 
+                        }
                     }
                 }
             }
@@ -132,9 +125,12 @@ namespace ExampleAssembly {
                 return;
             }
 
-            if (Cheat.Players.Length > 0) {
-                foreach (Player player in Cheat.Players) {
-                    if (player != null && player != Player.localPlayer) {
+            if (Cheat.Players.Length > 0)
+            {
+                foreach (Player player in Cheat.Players)
+                {
+                    if (player != null && player != Player.localPlayer)
+                    {
                         Vector3 w2S = MainCam.WorldToScreenPoint(player.GetComponentInChildren<FootLeft>().transform.position);
                         w2S.y = Screen.height - (w2S.y + 1f);
 
