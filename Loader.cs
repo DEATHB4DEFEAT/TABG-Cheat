@@ -19,13 +19,13 @@ namespace ExampleAssembly
             _gameObject = new UnityEngine.GameObject();
             _gameObject.AddComponent<Cheat>();
             _gameObject.AddComponent<Esp>();
-            UnityEngine.Object.DontDestroyOnLoad(_gameObject);
+            DontDestroyOnLoad(_gameObject);
             Console.WriteLine("Loaded ExampleAssembly!");
         }
 
         public static void Unload()
         {
-            UnityEngine.Object.Destroy(_gameObject);
+            Destroy(_gameObject);
         }
     }
 }

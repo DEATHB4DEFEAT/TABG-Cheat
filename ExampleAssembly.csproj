@@ -10,6 +10,7 @@
     <RootNamespace>ExampleAssembly</RootNamespace>
     <AssemblyName>ExampleAssembly</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -103,6 +104,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed\UnityEngine.UIModule.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Talespire.BepInEx" Version="5.4.21" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
