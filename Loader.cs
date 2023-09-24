@@ -1,5 +1,4 @@
-﻿using System;
-using BepInEx;
+﻿using BepInEx;
 
 namespace ExampleAssembly
 {
@@ -10,20 +9,13 @@ namespace ExampleAssembly
 
         private void Awake()
         {
-            Load();
-        }
-
-        public static void Load()
-        {
-            Console.WriteLine("Loading ExampleAssembly...");
             _gameObject = new UnityEngine.GameObject();
             _gameObject.AddComponent<Cheat>();
             _gameObject.AddComponent<Esp>();
             DontDestroyOnLoad(_gameObject);
-            Console.WriteLine("Loaded ExampleAssembly!");
         }
 
-        public static void Unload()
+        private void OnDestroy()
         {
             Destroy(_gameObject);
         }

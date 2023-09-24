@@ -163,4 +163,7 @@
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CSteam_005Csteamapps_005Ccommon_005CTotally_0020Accurate_0020Battle_0020Simulator_005CTotallyAccurateBattleSimulator_005FData_005CManaged_005CUnityEngine_002EWindModule_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CSteam_005Csteamapps_005Ccommon_005CTotally_0020Accurate_0020Battle_0020Simulator_005CTotallyAccurateBattleSimulator_005FData_005CManaged_005CUnityEngine_002EXR_002ELegacyInputHelpers_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CSteam_005Csteamapps_005Ccommon_005CTotally_0020Accurate_0020Battle_0020Simulator_005CTotallyAccurateBattleSimulator_005FData_005CManaged_005CUnityEngine_002EXRModule_002Edll/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CSteam_005Csteamapps_005Ccommon_005CTotally_0020Accurate_0020Battle_0020Simulator_005CTotallyAccurateBattleSimulator_005FData_005CManaged_005Cwebsocket_002Dsharp_002Edll/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CSteam_005Csteamapps_005Ccommon_005CTotally_0020Accurate_0020Battle_0020Simulator_005CTotallyAccurateBattleSimulator_005FData_005CManaged_005Cwebsocket_002Dsharp_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="D:\Downloads\build\debug\Assembly-CSharp.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

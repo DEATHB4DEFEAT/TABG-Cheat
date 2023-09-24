@@ -1,5 +1,4 @@
 ﻿using System;
-using RootMotion.FinalIK;
 using UnityEngine;
 
 namespace ExampleAssembly
@@ -29,7 +28,7 @@ namespace ExampleAssembly
                 _drawMenu = !_drawMenu;
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && _magicBullet)
+            if (Input.GetKey(KeyCode.Mouse0) && _magicBullet)
             {
                 if (Players.Length > 0)
                 {
@@ -68,16 +67,9 @@ namespace ExampleAssembly
             }
         }
 
-        public void SuperGun(Weapon gun)
+        public void SuperGun(Weapon weapon)
         {
-            gun.attackSpeedM = 100f;
-            gun.auto = true;
-            gun.internalCooldown = 0f;
-            gun.maxAngle = 0f;
-            gun.maxRange = 10000f;
-            gun.m_weaponType = Weapon.WeaponType.Magic;
-
-            Destroy(gun.GetComponent<Recoil>());
+            //
         }
 
         public void Update() {
