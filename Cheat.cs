@@ -1,4 +1,5 @@
 ﻿using System;
+using HarmonyLib;
 using Landfall.TABC;
 using RootMotion.FinalIK;
 using UnityEngine;
@@ -30,11 +31,12 @@ namespace ExampleAssembly
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && _magicBullet) {
                 if (Players.Length > 0) {
-                    foreach (Player player in Players) {
+                    foreach (var player in Players) {
                         if (player != null && player != Player.localPlayer) {
-                            foreach (ProjectileHit proj in FindObjectsOfType<ProjectileHit>()) {
+                            foreach (var proj in FindObjectsOfType<ProjectileHit>()) {
                                 // player.GetComponent<HealthHandler>().TakeDamage(1000f, proj.transform.position);
                                 proj.damage = 1000f;
+                                proj.force = 0.2f;
                                 proj.transform.position = player.transform.position;
 
                                 Console.WriteLine($"proj.name: {proj.name}");
@@ -80,11 +82,11 @@ namespace ExampleAssembly
                 Esp.MainCam = Camera.main;
             }
 
-            if (Time.time >= _lastItemCache) {
-                _lastItemCache = Time.time + 1f;
-
-                // droppedItems = FindObjectsOfType<Item>();
-            }
+            // if (Time.time >= _lastItemCache) {
+            //     _lastItemCache = Time.time + 1f;
+            //
+            //     droppedItems = FindObjectsOfType<Item>();
+            // }
         }
 
         public void OnGUI() {
@@ -110,18 +112,14 @@ namespace ExampleAssembly
                 // GUILayout.EndHorizontal();
 
                 if (GUILayout.Button("SuperGuns")) {
-                    Weapon rightGun = Player.localPlayer.GetComponentInChildren<WeaponHandler>().rightWeapon;
-                    Weapon leftGun = Player.localPlayer.GetComponentInChildren<WeaponHandler>().leftWeapon;
+                    var rightGun = Player.localPlayer.GetComponentInChildren<WeaponHandler>().rightWeapon;
+                    var leftGun = Player.localPlayer.GetComponentInChildren<WeaponHandler>().leftWeapon;
 
                     if (rightGun)
                         SuperGun(rightGun);
 
                     if (leftGun)
                         SuperGun(leftGun);
-                }
-
-                if (GUILayout.Button("Chams")) {
-                    Esp.DoChams();
                 }
             }
 
@@ -145,7 +143,17 @@ namespace ExampleAssembly
                 }
                 GUILayout.EndHorizontal();
 
-                Esp.PlayerName = GUILayout.Toggle(Esp.PlayerName, "Player Name");
+                GUILayout.BeginHorizontal();
+                {
+                    Esp.PlayerName = GUILayout.Toggle(Esp.PlayerName, "Player Name");
+                    Esp.Chams = GUILayout.Toggle(Esp.Chams, "Chams");
+                }
+                GUILayout.EndHorizontal();
+
+                // GUILayout.BeginHorizontal();
+                // {
+                    Esp.HealthBars = GUILayout.Toggle(Esp.HealthBars, "Player Health");
+                // }
             }
             GUILayout.EndVertical();
 

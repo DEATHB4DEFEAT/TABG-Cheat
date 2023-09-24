@@ -13,18 +13,18 @@ namespace ExampleAssembly {
         }
 
         internal static void DrawLine(Vector2 start, Vector2 end, Color color, float width) {
-            Color oldColour = GUI.color;
+            var oldColour = GUI.color;
 
             var rad2deg = 360 / (Math.PI * 2);
 
-            Vector2 d = end - start;
+            var d = end - start;
 
-            float a = (float)rad2deg * Mathf.Atan(d.y / d.x);
+            var a = (float)rad2deg * Mathf.Atan(d.y / d.x);
 
             if (d.x < 0)
                 a += 180;
 
-            int width2 = (int)Mathf.Ceil(width / 2);
+            var width2 = (int)Mathf.Ceil(width / 2);
 
             GUIUtility.RotateAroundPivot(a, start);
 
@@ -38,8 +38,8 @@ namespace ExampleAssembly {
         }
 
         internal static void CornerBox(Vector2 Head, float Width, float Height, float thickness, Color color, bool outline) {
-            int num = (int)(Width / 4f);
-            int num2 = num;
+            var num = (int)(Width / 4f);
+            var num2 = num;
 
             if (outline) {
                 RectFilled(Head.x - Width / 2f - 1f, Head.y - 1f, (float)(num + 2), 3f, Color.black);
@@ -69,7 +69,7 @@ namespace ExampleAssembly {
             pos += new Vector2(0f, 18f);
             BoxRect(new Rect(pos.x, pos.y, 52f, 5f), Color.black);
             pos += new Vector2(1f, 1f);
-            Color color = Color.green;
+            var color = Color.green;
             if (health <= 50f) {
                 color = Color.yellow;
             }
@@ -106,8 +106,8 @@ namespace ExampleAssembly {
             __outlineStyle.normal.textColor = new Color(0f, 0f, 0f, 1f);
             __outlineStyle.fontStyle = fontStyle;
 
-            GUIContent content = new GUIContent(text);
-            GUIContent content2 = new GUIContent(text);
+            var content = new GUIContent(text);
+            var content2 = new GUIContent(text);
             if (center) {
                 //GUI.skin.label.alignment = TextAnchor.MiddleCenter;
                 pos.x -= __style.CalcSize(content).x / 2f;
