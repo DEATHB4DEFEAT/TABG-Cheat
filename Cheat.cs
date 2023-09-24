@@ -1,6 +1,4 @@
 ﻿using System;
-using HarmonyLib;
-using Landfall.TABC;
 using RootMotion.FinalIK;
 using UnityEngine;
 
@@ -13,7 +11,7 @@ namespace ExampleAssembly
 
         private bool _magicBullet;
         private bool _godMode;
-        private bool _drawMenu = true;
+        private bool _drawMenu;
 
         private float _lastCacheTime = Time.time + 5f;
         private float _lastItemCache = Time.time + 1f;
@@ -131,29 +129,23 @@ namespace ExampleAssembly
 
                 GUILayout.BeginHorizontal();
                 {
-                    Esp.Crosshair = GUILayout.Toggle(Esp.Crosshair, "Crosshair");
-                    Esp.Item = GUILayout.Toggle(Esp.Item, "Item");
+                    GUILayout.BeginVertical();
+                    {
+                        Esp.Chams = GUILayout.Toggle(Esp.Chams, "Chams");
+                        Esp.PlayerName = GUILayout.Toggle(Esp.PlayerName, "Player Name");
+                        Esp.PlayerBox = GUILayout.Toggle(Esp.PlayerBox, "Player Box");
+                        Esp.HealthBars = GUILayout.Toggle(Esp.HealthBars, "Player Health");
+                    }
+                    GUILayout.EndVertical();
+                    GUILayout.BeginVertical();
+                    {
+                        Esp.Crosshair = GUILayout.Toggle(Esp.Crosshair, "Crosshair");
+                        Esp.Item = GUILayout.Toggle(Esp.Item, "Item");
+                        Esp.Vehicle = GUILayout.Toggle(Esp.Vehicle, "Vehicle");
+                    }
+                    GUILayout.EndVertical();
                 }
                 GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                {
-                    Esp.PlayerBox = GUILayout.Toggle(Esp.PlayerBox, "Player Box");
-                    Esp.Vehicle = GUILayout.Toggle(Esp.Vehicle, "Vehicle");
-                }
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                {
-                    Esp.PlayerName = GUILayout.Toggle(Esp.PlayerName, "Player Name");
-                    Esp.Chams = GUILayout.Toggle(Esp.Chams, "Chams");
-                }
-                GUILayout.EndHorizontal();
-
-                // GUILayout.BeginHorizontal();
-                // {
-                    Esp.HealthBars = GUILayout.Toggle(Esp.HealthBars, "Player Health");
-                // }
             }
             GUILayout.EndVertical();
 

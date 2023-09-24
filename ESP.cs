@@ -1,16 +1,13 @@
-﻿using System;
-using Landfall.TABC;
-using Landfall.TABS.AI.Components;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ExampleAssembly {
     class Esp : MonoBehaviour {
-        public static bool PlayerBox;
-        public static bool PlayerName;
         public static bool Chams;
-        public static bool Crosshair;
         public static bool Item;
         public static bool Vehicle;
+        public static bool PlayerName;
+        public static bool PlayerBox;
+        public static bool Crosshair;
         public static bool HealthBars;
 
         private static readonly float CrosshairScale = 7f;
@@ -20,7 +17,8 @@ namespace ExampleAssembly {
 
         public static Camera MainCam;
 
-        private static float _chamRefreshTime = Time.time + 5f;
+        private static float _chamRefreshTime = Time.time + 1f;
+
 
         public void Start() {
             _chamsMaterial = new Material(Shader.Find("Hidden/Internal-Colored"))
@@ -38,13 +36,28 @@ namespace ExampleAssembly {
             MainCam = Camera.main;
         }
 
+
+        public void OnGUI() {
+            if (Event.current.type != EventType.Repaint)
+                return;
+
+            DoChams();
+            // Items();
+            // Vehicles();
+            MakePlayerName();
+            MakePlayerBox();
+            MakeCrosshair();
+            // MakeHealthBars();
+        }
+
+
         public static void DoChams() {
             if (!Chams)
                 return;
 
             if (Time.time >= _chamRefreshTime)
             {
-                _chamRefreshTime = Time.time + 5f;
+                _chamRefreshTime = Time.time + 1f;
 
                 foreach (var player in FindObjectsOfType<Player>())
                 {
@@ -59,19 +72,6 @@ namespace ExampleAssembly {
                     }
                 }
             }
-        }
-
-        public void OnGUI() {
-            if (Event.current.type != EventType.Repaint)
-                return;
-
-            DoChams();
-            // Items();
-            // Vehicles();
-            MakePlayerName();
-            MakePlayerBox();
-            MakeCrosshair();
-            // MakeHealthBars();
         }
 
         // private static void Items()
@@ -116,6 +116,28 @@ namespace ExampleAssembly {
         //     }
         // }
 
+        private static void MakePlayerName()
+        {
+            if (!PlayerName)
+                return;
+
+            if (Cheat.Players.Length > 0)
+            {
+                foreach (var player in Cheat.Players)
+                {
+                    if (player != null && player != Player.localPlayer)
+                    {
+                        var w2S = MainCam.WorldToScreenPoint(player.GetComponentInChildren<FootLeft>().transform.position);
+                        w2S.y = Screen.height - (w2S.y + 1f);
+
+                        if (ESPUtils.IsOnScreen(w2S)) {
+                            ESPUtils.DrawString(w2S, "Player", Color.cyan, true, 12, FontStyle.Bold, 1);
+                        }
+                    }
+                }
+            }
+        }
+
         private static void MakePlayerBox()
         {
             if (!PlayerBox)
@@ -135,28 +157,6 @@ namespace ExampleAssembly {
                         if (ESPUtils.IsOnScreen(w2SHead))
                             ESPUtils.CornerBox(new Vector2(w2SHead.x, Screen.height - w2SHead.y - 20f), height / 2f,
                                 height + 20f, 2f, Color.cyan, true);
-                    }
-                }
-            }
-        }
-
-        private static void MakePlayerName()
-        {
-            if (!PlayerName)
-                return;
-
-            if (Cheat.Players.Length > 0)
-            {
-                foreach (var player in Cheat.Players)
-                {
-                    if (player != null && player != Player.localPlayer)
-                    {
-                        var w2S = MainCam.WorldToScreenPoint(player.GetComponentInChildren<FootLeft>().transform.position);
-                        w2S.y = Screen.height - (w2S.y + 1f);
-
-                        if (ESPUtils.IsOnScreen(w2S)) {
-                            ESPUtils.DrawString(w2S, "Player", Color.cyan, true, 12, FontStyle.Bold, 1);
-                        }
                     }
                 }
             }

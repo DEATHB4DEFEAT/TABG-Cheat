@@ -1,19 +1,31 @@
-# TABGMonoInternal
-Basic mono internal for TABG. The main goal was performance, you can read my UC post about how to optimise mono internals if it interests you.
-https://www.unknowncheats.me/forum/unity/437277-mono-internal-optimisation-tips.html#post3044200
-
 # How to build
-1. Reference most dlls in <gameDirectory>\TotallyAccurateBattlegrounds_Data\Managed
-2. Build
+
+1. Open the project in Visual Studio or Rider
+2. Reference most dlls in `<gameDirectory>/TotallyAccurateBattlegrounds_Data/Managed`
+3. Fix any out of date references
+4. Build
+
+# How to Use
+
+1. Download and install BepInEx
+2. Place the built dll in `<gameDirectory>/BepInEx/plugins`
+3. Open the game
+4. Press `Insert` to toggle the UI
 
 # Features
-Magic bullet, Player box esp, Rapid fire guns, infinite ammo, crosshair, player name esp, player chams, vehicle esp, item esp, infinite jumps, speedhack and a basic godmode.
 
-# Detection
-I've been using it for 2 days in a row and I haven't gotten banned yet. I HIGHLY recommend you rebuild your own SharpMonoInjector and rename the window title though.
+- [x] Crosshair
+- [x] Player ESP (Box/Name/Chams)
+- [ ] Player ESP (Health)
+- [ ] Item ESP
+- [ ] Vehicle ESP
+- [ ] Speed
+- [ ] Jump
+- [ ] Godmode
+- [ ] Magic Bullet (Instakill Nearby Players)
+- [ ] Super Guns (Fast/No Recoil/Infinite Ammo/No Spread)
+- [ ] Spawn Items
 
-# How to use
-Use VollRagm's public EQU8 bypass on a mono injector (the guy's a legend go +rep him): https://www.unknowncheats.me/forum/anti-cheat-bypass/451234-noequ8-cheat-engine-totally-accurate-battlegrounds.html
+# Media
 
-# Video
-https://streamable.com/yvdtyq
+![ESP](images/ESP.png)
