@@ -21,11 +21,15 @@
 - [ ] Vehicle ESP
 - [ ] Speed
 - [ ] Jump
+- [x] Flight
+- [ ] No Fall Stun
 - [ ] Godmode
 - [ ] Magic Bullet (Instakill Nearby Players)
 - [ ] Super Guns (Fast/No Recoil/Infinite Ammo/No Spread)
 - [ ] Spawn Items
 
 # Media
+
+**Note:** I use a 4K monitor, so all the UI elements from this are very small in the media.
 
 ![ESP](images/ESP.png)

@@ -9,9 +9,10 @@ namespace ExampleAssembly
         private readonly int _mainWid = 1024;
         private Rect _mainWRect = new Rect(5f, 5f, 300f, 150f);
 
-        private bool _magicBullet;
-        private bool _godMode;
         private bool _drawMenu;
+        private bool _magicBullet;
+        private bool _spaceFly;
+        private bool _godMode;
 
         private float _lastCacheTime = Time.time + 5f;
         private float _lastItemCache = Time.time + 1f;
@@ -23,15 +24,21 @@ namespace ExampleAssembly
 
         public void KeyHandler()
         {
-            if (Input.GetKeyDown(KeyCode.Insert)) {
+            if (Input.GetKeyDown(KeyCode.Insert))
+            {
                 _drawMenu = !_drawMenu;
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && _magicBullet) {
-                if (Players.Length > 0) {
-                    foreach (var player in Players) {
-                        if (player != null && player != Player.localPlayer) {
-                            foreach (var proj in FindObjectsOfType<ProjectileHit>()) {
+            if (Input.GetKeyDown(KeyCode.Mouse0) && _magicBullet)
+            {
+                if (Players.Length > 0)
+                {
+                    foreach (var player in Players)
+                    {
+                        if (player != null && player != Player.localPlayer)
+                        {
+                            foreach (var proj in FindObjectsOfType<ProjectileHit>())
+                            {
                                 // player.GetComponent<HealthHandler>().TakeDamage(1000f, proj.transform.position);
                                 proj.damage = 1000f;
                                 proj.force = 0.2f;
@@ -45,6 +52,19 @@ namespace ExampleAssembly
                         }
                     }
                 }
+            }
+
+            if (Input.GetKey(KeyCode.Space) && _spaceFly && Player.localPlayer != null)
+            {
+                var player = Player.localPlayer;
+                var cam = Camera.main;
+                var camTransform = cam.transform;
+
+                var mousePos = Input.mousePosition;
+                var worldPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
+                var dir = (worldPos - camTransform.position).normalized;
+
+                player.transform.position += dir * (Time.deltaTime * 15f);
             }
         }
 
@@ -140,6 +160,7 @@ namespace ExampleAssembly
                     GUILayout.BeginVertical();
                     {
                         Esp.Crosshair = GUILayout.Toggle(Esp.Crosshair, "Crosshair");
+                        _spaceFly = GUILayout.Toggle(_spaceFly, "Space Fly");
                         Esp.Item = GUILayout.Toggle(Esp.Item, "Item");
                         Esp.Vehicle = GUILayout.Toggle(Esp.Vehicle, "Vehicle");
                     }
