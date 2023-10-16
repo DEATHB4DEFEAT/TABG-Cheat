@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+// ReSharper disable Unity.PerformanceCriticalCodeNullComparison
+// ReSharper disable Unity.PerformanceCriticalCodeInvocation
 
 namespace ExampleAssembly {
     class Esp : MonoBehaviour {
@@ -8,9 +10,8 @@ namespace ExampleAssembly {
         public static bool PlayerName;
         public static bool PlayerBox;
         public static bool Crosshair;
-        public static bool HealthBars;
 
-        private static readonly float CrosshairScale = 7f;
+        private static readonly float CrosshairScale = 10f;
         private static readonly float LineThickness = 1.75f;
 
         private static Material _chamsMaterial;
@@ -42,79 +43,74 @@ namespace ExampleAssembly {
                 return;
 
             DoChams();
-            // Items();
-            // Vehicles();
+            Items();
+            Vehicles();
             MakePlayerName();
             MakePlayerBox();
             MakeCrosshair();
-            // MakeHealthBars();
         }
 
 
-        public static void DoChams() {
+        private static void DoChams() {
             if (!Chams)
                 return;
 
-            if (Time.time >= _chamRefreshTime)
+            if (!(Time.time >= _chamRefreshTime))
+                return;
+
+            _chamRefreshTime = Time.time + 1f;
+
+            foreach (var player in FindObjectsOfType<Player>())
             {
-                _chamRefreshTime = Time.time + 1f;
+                if (player == null || player == Player.localPlayer)
+                    continue;
 
-                foreach (var player in FindObjectsOfType<Player>())
+                foreach (var renderer in player.gameObject.GetComponentsInChildren<Renderer>())
+                    renderer.material = _chamsMaterial;
+            }
+        }
+
+        private static void Items()
+        {
+            if (!Item)
+                return;
+
+            if (Cheat.DroppedItems.Length > 0)
+            {
+                foreach (var item in Cheat.DroppedItems)
                 {
-                    if (player == null || player == Player.localPlayer)
-                    {
+                    if (item == null)
                         continue;
-                    }
 
-                    foreach (var renderer in player.gameObject.GetComponentsInChildren<Renderer>())
-                    {
-                        renderer.material = _chamsMaterial;
-                    }
+                    Vector3 w2S = MainCam.WorldToScreenPoint(item.transform.position);
+                    w2S.y = Screen.height - (w2S.y + 1f);
+
+                    if (ESPUtils.IsOnScreen(w2S))
+                        ESPUtils.DrawString(w2S, item.name, Color.green, true, 12, FontStyle.BoldAndItalic, 1);
                 }
             }
         }
 
-        // private static void Items()
-        // {
-        //     if (!Item)
-        //         return;
-        //
-        //     if (Cheat.droppedItems.Length > 0)
-        //     {
-        //         foreach (var item in Cheat.droppedItems)
-        //         {
-        //             if (item == null)
-        //                 continue;
-        //
-        //             Vector3 w2S = MainCam.WorldToScreenPoint(item.transform.position);
-        //             w2S.y = Screen.height - (w2S.y + 1f);
-        //
-        //             if (ESPUtils.IsOnScreen(w2S))
-        //                 ESPUtils.DrawString(w2S, item.name, Color.green, true, 12, FontStyle.BoldAndItalic, 1);
-        //         }
-        //     }
-        // }
+        private static void Vehicles()
+        {
+            if (!Vehicle)
+                return;
 
-        // private static void Vehicles()
-        // {
-        //     if (!Vehicle)
-        //         return;
-        //
-        //     if (Cheat.vehicles.Length > 0)
-        //     {
-        //         foreach (var vehicle in Cheat.vehicles)
-        //         {
-        //             if (vehicle == null)
-        //                 continue;
-        //
-        //             Vector3 w2S = MainCam.WorldToScreenPoint(vehicle.transform.position);
-        //             w2S.y = Screen.height - (w2S.y + 1f);
-        //
-        //             if (ESPUtils.IsOnScreen(w2S))
-        //                 ESPUtils.DrawString(w2S, "Vehicle", Color.yellow, true, 12, FontStyle.BoldAndItalic, 1);
-        //         }
-        //     }
-        // }
+            if (Cheat.Vehicles.Length > 0)
+            {
+                foreach (var vehicle in Cheat.Vehicles)
+                {
+                    if (vehicle == null)
+                        continue;
+
+                    Vector3 w2S = MainCam.WorldToScreenPoint(vehicle.transform.position);
+                    w2S.y = Screen.height - (w2S.y + 1f);
+
+                    if (ESPUtils.IsOnScreen(w2S))
+                        ESPUtils.DrawString(w2S, "Vehicle", Color.yellow, true, 12, FontStyle.BoldAndItalic, 1);
+                }
+            }
+        }
 
         private static void MakePlayerName()
         {
@@ -131,7 +127,7 @@ namespace ExampleAssembly {
                         w2S.y = Screen.height - (w2S.y + 1f);
 
                         if (ESPUtils.IsOnScreen(w2S)) {
-                            ESPUtils.DrawString(w2S, "Player", Color.cyan, true, 12, FontStyle.Bold, 1);
+                            ESPUtils.DrawString(w2S, player.name, Color.cyan, true, 12, FontStyle.Bold, 1);
                         }
                     }
                 }
@@ -179,27 +175,5 @@ namespace ExampleAssembly {
             ESPUtils.DrawLine(lineHorizontalStart, lineHorizontalEnd, col, LineThickness);
             ESPUtils.DrawLine(lineVerticalStart, lineVerticalEnd, col, LineThickness);
         }
-
-        // private static void MakeHealthBars()
-        // {
-        //     if (!HealthBars)
-        //         return;
-        //
-        //     if (Cheat.Players.Length > 0)
-        //     {
-        //         foreach (var player in Cheat.Players)
-        //         {
-        //             if (player != null && player != Player.localPlayer)
-        //             {
-        //                 var w2S = MainCam.WorldToScreenPoint(player.GetComponentInChildren<FootLeft>().transform
-        //                     .position);
-        //
-        //                 if (ESPUtils.IsOnScreen(w2S))
-        //                     // ESPUtils.DrawHealth(w2S, player.GetComponentInChildren<PlayerHealth>().health, true);
-        //                     ESPUtils.DrawHealth(w2S, 50f, true);
-        //             }
-        //         }
-        //     }
-        // }
     }
 }
