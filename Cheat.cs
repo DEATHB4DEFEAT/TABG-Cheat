@@ -31,6 +31,9 @@ namespace ExampleAssembly
                     if (player != Player.localPlayer && player != null)
                         foreach (ProjectileHit proj in FindObjectsOfType<ProjectileHit>())
                             player.m_playerDeath.TakeDamage(proj.transform.position, new Vector3());
+
+            if (Input.GetKey(KeyCode.Home))
+                Player.localPlayer.GetComponent<Skydiving>().Launch(Player.localPlayer.m_playerCamera.transform.forward);
         }
 
         public void SuperGun(ref Gun gun)
@@ -45,6 +48,7 @@ namespace ExampleAssembly
             gun.currentFireMode = 2; // Full auto.
 
             Destroy(gun.GetComponent<Recoil>());
+            Destroy(FindObjectOfType<AddScreenShake>());
         }
 
         public void Update() {
