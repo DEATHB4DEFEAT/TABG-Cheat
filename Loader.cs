@@ -1,8 +1,9 @@
 ﻿using BepInEx;
+using ExampleAssembly;
 
-namespace ExampleAssembly
+namespace TABGMonoInternal
 {
-    [BepInPlugin("com.biney.exampleassembly", "ExampleAssembly", "1.0")]
+    [BepInPlugin("com.death.tabgmonointernal", "TABGMonoInternal", "1.0")]
     public class Loader : BaseUnityPlugin
     {
         static UnityEngine.GameObject _gameObject;
