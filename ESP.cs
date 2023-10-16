@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 // ReSharper disable Unity.PerformanceCriticalCodeNullComparison
 // ReSharper disable Unity.PerformanceCriticalCodeInvocation
+// ReSharper disable Unity.NoNullPropagation
 
 namespace ExampleAssembly {
     class Esp : MonoBehaviour {

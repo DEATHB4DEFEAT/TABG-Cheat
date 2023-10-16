@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 // ReSharper disable Unity.PerformanceCriticalCodeInvocation
 // ReSharper disable Unity.PerformanceCriticalCodeNullComparison
+// ReSharper disable Unity.NoNullPropagation
 
 namespace ExampleAssembly
 {
@@ -32,7 +33,7 @@ namespace ExampleAssembly
                             player.m_playerDeath.TakeDamage(proj.transform.position, new Vector3());
         }
 
-        public void SuperGun(Gun gun)
+        public void SuperGun(ref Gun gun)
         {
             gun.bullets = 65535;
             gun.bulletsInMag = 65535;
@@ -41,7 +42,7 @@ namespace ExampleAssembly
             gun.hipSpreadValue = 0f;
             gun.projectileRecoilMultiplier = 0f;
             gun.rateOfFire = 0.025f;
-            gun.currentFireMode = 2; // Full auto
+            gun.currentFireMode = 2; // Full auto.
 
             Destroy(gun.GetComponent<Recoil>());
         }
@@ -93,14 +94,14 @@ namespace ExampleAssembly
 
                 if (GUILayout.Button("SuperGuns"))
                 {
-                    Gun rightGun = Player.localPlayer.m_weaponHandler.rightWeapon.gun;
-                    Gun leftGun = Player.localPlayer.m_weaponHandler.leftWeapon.gun;
+                    Gun rightGun = Player.localPlayer?.m_weaponHandler?.rightWeapon?.gun;
+                    Gun leftGun = Player.localPlayer?.m_weaponHandler?.leftWeapon?.gun;
 
                     if (rightGun)
-                        SuperGun(rightGun);
+                        SuperGun(ref rightGun);
 
                     if (leftGun)
-                        SuperGun(leftGun);
+                        SuperGun(ref leftGun);
                 }
             }
 
