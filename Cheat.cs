@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+
 // ReSharper disable Unity.PerformanceCriticalCodeInvocation
 // ReSharper disable Unity.PerformanceCriticalCodeNullComparison
 // ReSharper disable Unity.NoNullPropagation
 
-namespace ExampleAssembly
+namespace TABGMonoInternal
 {
     public class Cheat : MonoBehaviour
     {
@@ -20,36 +21,6 @@ namespace ExampleAssembly
         public static Pickup[] DroppedItems;
         public static Car[] Vehicles;
 
-
-        public void KeyHandler()
-        {
-            if (Input.GetKeyDown(KeyCode.Insert))
-                _drawMenu = !_drawMenu;
-
-            if (Input.GetKeyDown(KeyCode.Mouse0) && _magicBullet && Players.Length > 0)
-                foreach (Player player in Players)
-                    if (player != Player.localPlayer && player != null)
-                        foreach (ProjectileHit proj in FindObjectsOfType<ProjectileHit>())
-                            player.m_playerDeath.TakeDamage(proj.transform.position, new Vector3());
-
-            if (Input.GetKey(KeyCode.Home))
-                Player.localPlayer.GetComponent<Skydiving>().Launch(Player.localPlayer.m_playerCamera.transform.forward);
-        }
-
-        public void SuperGun(ref Gun gun)
-        {
-            gun.bullets = 65535;
-            gun.bulletsInMag = 65535;
-            gun.extraSpread = 0f;
-            gun.hasFullAuto = true;
-            gun.hipSpreadValue = 0f;
-            gun.projectileRecoilMultiplier = 0f;
-            gun.rateOfFire = 0.025f;
-            gun.currentFireMode = 2; // Full auto.
-
-            Destroy(gun.GetComponent<Recoil>());
-            Destroy(FindObjectOfType<AddScreenShake>());
-        }
 
         public void Update() {
             KeyHandler();
@@ -68,6 +39,21 @@ namespace ExampleAssembly
 
                 DroppedItems = FindObjectsOfType<Pickup>();
             }
+        }
+
+        public void KeyHandler()
+        {
+            if (Input.GetKeyDown(KeyCode.Insert))
+                _drawMenu = !_drawMenu;
+
+            if (Input.GetKeyDown(KeyCode.Mouse0) && _magicBullet && Players.Length > 0)
+                foreach (Player player in Players)
+                    if (player != Player.localPlayer && player != null)
+                        foreach (ProjectileHit proj in FindObjectsOfType<ProjectileHit>())
+                            player.m_playerDeath.TakeDamage(proj.transform.position, new Vector3());
+
+            if (Input.GetKey(KeyCode.Home))
+                Player.localPlayer.GetComponent<Skydiving>().Launch(Player.localPlayer.m_playerCamera.transform.forward);
         }
 
 
@@ -137,6 +123,22 @@ namespace ExampleAssembly
             GUILayout.EndVertical();
 
             GUI.DragWindow();
+        }
+
+
+        public void SuperGun(ref Gun gun)
+        {
+            gun.bullets = 65535;
+            gun.bulletsInMag = 65535;
+            gun.extraSpread = 0f;
+            gun.hasFullAuto = true;
+            gun.hipSpreadValue = 0f;
+            gun.projectileRecoilMultiplier = 0f;
+            gun.rateOfFire = 0.025f;
+            gun.currentFireMode = 2; // Full auto.
+
+            Destroy(gun.GetComponent<Recoil>());
+            Destroy(FindObjectOfType<AddScreenShake>());
         }
     }
 }

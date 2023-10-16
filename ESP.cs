@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
+
 // ReSharper disable Unity.PerformanceCriticalCodeNullComparison
 // ReSharper disable Unity.PerformanceCriticalCodeInvocation
 // ReSharper disable Unity.NoNullPropagation
 
-namespace ExampleAssembly {
+namespace TABGMonoInternal {
     class Esp : MonoBehaviour {
         public static bool Chams;
+        private static Material _chamsMaterial;
+        private static float _chamRefreshTime = Time.time + 1f;
+
         public static bool Item;
         public static bool Vehicle;
         public static bool PlayerName;
         public static bool PlayerBox;
-        public static bool Crosshair;
 
+        public static bool Crosshair;
         private static readonly float CrosshairScale = 10f;
         private static readonly float LineThickness = 1.75f;
 
-        private static Material _chamsMaterial;
-
         public static Camera MainCam;
-
-        private static float _chamRefreshTime = Time.time + 1f;
 
 
         public void Start() {

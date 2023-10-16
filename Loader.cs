@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using ExampleAssembly;
 
 namespace TABGMonoInternal
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ExampleAssembly {
+namespace TABGMonoInternal {
     static class ESPUtils {
         // Most of this is straight from Quantum Cheats Rust/EFT.
 
