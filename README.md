@@ -32,12 +32,13 @@ You *can* join servers, but you will be kicked for not having EAC active after a
 - [x] Item ESP
 - [x] Vehicle ESP
 - [x] Speed Modifier
-- [ ] Jump Modifier
+- [x] Jump Modifier
 - [x] Launch
 - [ ] No Fall Stun
 - [x] Godmode (Can Still Die)
 - [x] Magic Bullet (Instakill Nearby Players)
 - [x] Super Guns (Fast/No Recoil/Infinite Ammo/No Spread)
+- [ ] Strong Punch
 - [ ] Spawn Items
 
 # Media

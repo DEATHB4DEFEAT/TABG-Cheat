@@ -13,6 +13,7 @@ namespace TABGMonoInternal
 
         private bool _drawMenu;
         private bool _magicBullet;
+        private bool _strongPunch;
 
         private float _lastCacheTime = Time.time + 2.5f;
         private float _lastItemCache = Time.time + 1f;
@@ -31,13 +32,32 @@ namespace TABGMonoInternal
                 Players = FindObjectsOfType<Player>();
                 Vehicles = FindObjectsOfType<Car>();
 
-                Esp.MainCam = Camera.main;
+                ESP.MainCam = Camera.main;
             }
 
             if (Time.time >= _lastItemCache) {
                 _lastItemCache = Time.time + 1f;
 
                 DroppedItems = FindObjectsOfType<Pickup>();
+            }
+
+            if (_strongPunch)
+            {
+                foreach (var melee in FindObjectsOfType<MeleeWeapon>())
+                {
+                    melee.damageOnHit = 5000f;
+                    melee.forceOnHit = 5000f;
+                    melee.cd = 0f;
+                }
+            }
+            else
+            {
+                foreach (var melee in FindObjectsOfType<MeleeWeapon>())
+                {
+                    melee.damageOnHit = 10f;
+                    melee.forceOnHit = 10f;
+                    melee.cd = 0.4f;
+                }
             }
         }
 
@@ -63,22 +83,28 @@ namespace TABGMonoInternal
         }
 
         private void MainWindow(int id) {
-            GUILayout.BeginHorizontal();
-            {
+            if (Player.localPlayer != null) {
                 _magicBullet = GUILayout.Toggle(_magicBullet, "Magic Bullet");
+
+                _strongPunch = GUILayout.Toggle(_strongPunch, "Strong Punch");
+
                 if (GUILayout.Button("GodMode"))
                 {
                     Player.localPlayer.stats.regenerationAdd = 3000f;
                     Player.localPlayer.stats.extraJumps = 1000;
                 }
-            }
-            GUILayout.EndHorizontal();
 
-            if (Player.localPlayer != null) {
                 GUILayout.BeginHorizontal();
                 {
                     GUILayout.Label($"Added Speed {Mathf.Floor(Player.localPlayer.stats.movementSpeedAdd)}");
                     Player.localPlayer.stats.movementSpeedAdd = GUILayout.HorizontalSlider(Player.localPlayer.stats.movementSpeedAdd, 0f, 30f);
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label($"Jump Multiplier {Mathf.Floor(Player.localPlayer.stats.jumpMultiplier)}");
+                    Player.localPlayer.stats.jumpMultiplier = GUILayout.HorizontalSlider(Player.localPlayer.stats.jumpMultiplier, 1f, 10f);
                 }
                 GUILayout.EndHorizontal();
 
@@ -95,7 +121,9 @@ namespace TABGMonoInternal
                 }
             }
 
+
             GUILayout.Space(20f);
+
 
             GUILayout.BeginVertical("ESP", GUI.skin.box);
             {
@@ -105,16 +133,16 @@ namespace TABGMonoInternal
                 {
                     GUILayout.BeginVertical();
                     {
-                        Esp.Chams = GUILayout.Toggle(Esp.Chams, "Chams");
-                        Esp.PlayerName = GUILayout.Toggle(Esp.PlayerName, "Player Name");
-                        Esp.PlayerBox = GUILayout.Toggle(Esp.PlayerBox, "Player Box");
+                        ESP.Chams = GUILayout.Toggle(ESP.Chams, "Chams");
+                        ESP.PlayerName = GUILayout.Toggle(ESP.PlayerName, "Player Name");
+                        ESP.PlayerBox = GUILayout.Toggle(ESP.PlayerBox, "Player Box");
                     }
                     GUILayout.EndVertical();
                     GUILayout.BeginVertical();
                     {
-                        Esp.Crosshair = GUILayout.Toggle(Esp.Crosshair, "Crosshair");
-                        Esp.Item = GUILayout.Toggle(Esp.Item, "Item");
-                        Esp.Vehicle = GUILayout.Toggle(Esp.Vehicle, "Vehicle");
+                        ESP.Crosshair = GUILayout.Toggle(ESP.Crosshair, "Crosshair");
+                        ESP.Item = GUILayout.Toggle(ESP.Item, "Item");
+                        ESP.Vehicle = GUILayout.Toggle(ESP.Vehicle, "Vehicle");
                     }
                     GUILayout.EndVertical();
                 }

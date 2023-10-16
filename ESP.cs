@@ -5,7 +5,7 @@
 // ReSharper disable Unity.NoNullPropagation
 
 namespace TABGMonoInternal {
-    class Esp : MonoBehaviour {
+    class ESP : MonoBehaviour {
         public static bool Chams;
         private static Material _chamsMaterial;
         private static float _chamRefreshTime = Time.time + 1f;

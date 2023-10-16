@@ -17,7 +17,7 @@ namespace TABGMonoInternal
 
             _gameObject = new UnityEngine.GameObject();
             _gameObject.AddComponent<Cheat>();
-            _gameObject.AddComponent<Esp>();
+            _gameObject.AddComponent<ESP>();
             DontDestroyOnLoad(_gameObject);
         }
 
