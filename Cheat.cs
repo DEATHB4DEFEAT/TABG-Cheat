@@ -72,7 +72,7 @@ namespace TABGMonoInternal
                         foreach (ProjectileHit proj in FindObjectsOfType<ProjectileHit>())
                             player.m_playerDeath.TakeDamage(proj.transform.position, new Vector3());
 
-            if (Input.GetKey(KeyCode.Home))
+            if (Input.GetKeyDown(KeyCode.Home))
                 Player.localPlayer.GetComponent<Skydiving>().Launch(Player.localPlayer.m_playerCamera.transform.forward);
         }
 
@@ -85,10 +85,9 @@ namespace TABGMonoInternal
         private void MainWindow(int id) {
             if (Player.localPlayer != null) {
                 _magicBullet = GUILayout.Toggle(_magicBullet, "Magic Bullet");
-
                 _strongPunch = GUILayout.Toggle(_strongPunch, "Strong Punch");
 
-                if (GUILayout.Button("GodMode"))
+                if (GUILayout.Button("God Mode"))
                 {
                     Player.localPlayer.stats.regenerationAdd = 3000f;
                     Player.localPlayer.stats.extraJumps = 1000;
