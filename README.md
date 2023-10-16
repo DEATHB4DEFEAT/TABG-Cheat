@@ -29,19 +29,19 @@ You *can* join servers, but you will be kicked for not having EAC active after a
 - [x] Crosshair
 - [x] Player ESP (Box/Name/Chams)
 - [ ] Player ESP (Health)
-- [ ] Item ESP
-- [ ] Vehicle ESP
-- [ ] Speed Modifier
+- [x] Item ESP
+- [x] Vehicle ESP
+- [x] Speed Modifier
 - [ ] Jump Modifier
-- [x] Flight (Kinda)
+- [x] Launch
 - [ ] No Fall Stun
-- [ ] Godmode
-- [ ] Magic Bullet (Instakill Nearby Players)
-- [ ] Super Guns (Fast/No Recoil/Infinite Ammo/No Spread)
+- [x] Godmode (Can Still Die)
+- [x] Magic Bullet (Instakill Nearby Players)
+- [x] Super Guns (Fast/No Recoil/Infinite Ammo/No Spread)
 - [ ] Spawn Items
 
 # Media
 
-**Note:** I use a 4K monitor, so all the UI elements from this are very small in the media.
+**Note:** I use a 4K monitor, so UI elements may be inaccurate.
 
 ![ESP](images/ESP.png)
