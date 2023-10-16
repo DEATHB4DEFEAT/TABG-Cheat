@@ -18,7 +18,7 @@ If you read the repository description, you'd know I don't have an EAC bypass, s
 
 1. Rename the EAC `TABG_Launcher.exe` to anything else (or delete it)
 2. Rename `TotallyAccurateBattlegrounds.exe` to `TABG_Launcher.exe`
-3. Rename `totallyAccurateBattlegrounds_Data` to `TABG_Launcher_Data`
+3. Rename `TotallyAccurateBattlegrounds_Data` to `TABG_Launcher_Data`
 4. Launch the game through Steam (or don't and see what happens)
 5. Do NOT click `OK` on the "Failed to load anti-cheat" notification, it will close the game
 
